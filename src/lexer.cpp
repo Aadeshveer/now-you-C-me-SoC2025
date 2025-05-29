@@ -97,7 +97,7 @@ std::string Lexer::read_identifier(){ // reads in name of variable
 }
 
 void Lexer::add_token(TokenType type, std::string value){
-    tokens.push_back(Token(type, value, line, column - value.length()));
+    tokens.push_back(Token(type, value, line, column - (type == ERROR ? 0 : value.length())));
 }
 
 void Lexer::next_token(){
@@ -143,6 +143,20 @@ void Lexer::next_token(){
             add_token(EQUAL, "=");
         }
         break;
+        
+    case '!':
+        position++;
+        column++;
+        if(peek_char() == '='){
+            position++;
+            column++;
+            add_token(NE, "!=");
+        }
+        else{
+            add_token(ERROR, "Unexpected character: !");
+        }
+        break;
+    
         
     case '+':
         position++;
@@ -276,7 +290,7 @@ void Lexer::next_token(){
         break;
 
     default:
-        add_token(ERROR, "Unexpected character : " + peek_char());
+        add_token(ERROR, "Unexpected character");
         column++;
         position++;
         break;

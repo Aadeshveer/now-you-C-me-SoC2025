@@ -1,7 +1,33 @@
-int main(void){
-    int x = 0;
-    while(x<10){
-        output(0);
-        x = x + 1;
-    }
+int
+void
+if
+else
+while
+return
+input
+output
++
+-
+*
+/
+=
+==
+!=
+<
+<=
+>
+>=
+{
 }
+(
+)
+[
+]
+;
+,
+identifier
+1234
+var
+func
+#
+!
