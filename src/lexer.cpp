@@ -28,7 +28,7 @@ std::map<TokenType , std::string> token_id_map = {
     {TokenType::RSQUARE, "RSQUARE"},
     {TokenType::SEMICOLON, "SEMICOLON"},
     {TokenType::COMMA  , "COMMA"},
-    {TokenType::IDENTIFIER, "IDNETIFIER"},
+    {TokenType::IDENTIFIER, "IDENTIFIER"},
     {TokenType::INT_ID , "INT_ID"},
     {TokenType::VAR_ID , "VAR_ID"},
     {TokenType::FUNC_ID, "FUNC_ID"},
@@ -290,7 +290,7 @@ void Lexer::next_token(){
         break;
 
     default:
-        add_token(ERROR, "Unexpected character");
+        add_token(ERROR, std::string("Unexpected character: ").append(std::string(1, peek_char())));
         column++;
         position++;
         break;
@@ -298,10 +298,11 @@ void Lexer::next_token(){
 }
 
 void Lexer::handle_comments(){
-    char c;
-    while(c = peek_char() && c != '\n'){
+    char c = peek_char();
+    while(c && c != '\n'){
         position++;
         column++;
+        c = peek_char();
     }
     if(peek_char()){
         line++;
